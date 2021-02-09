@@ -1,5 +1,5 @@
 # пряма реалізація бінарного дерева
-class bin_tree_node:
+class Bin_tree_node:
     def __init__(self, val):
         self.value = val
         self.left = None
@@ -10,12 +10,12 @@ class bin_tree_node:
             if self.left:
                 self.left.add(val)
             else:
-                self.left = bin_tree_node(val)
+                self.left = Bin_tree_node(val)
         elif val>self.value:
             if self.right:
                 self.right.add(val)
             else:
-                self.right = bin_tree_node(val)
+                self.right = Bin_tree_node(val)
     
     def height(self):
         res = 1
@@ -28,16 +28,17 @@ class bin_tree_node:
                 res = h+1 
         return res
 
+
 n = int(input())
 max_h = 0
-max = -1
-for _ in range(n):
+max_index = -1
+for i in range(n):
     tree = list(map(int, input().split()))
-    root= bin_tree_node(tree[1])
+    root= Bin_tree_node(tree[1])
     for i in range(2, tree[0]+1):
         root.add(tree[i])
     h=root.height()
     if h>max_h:
         max_h = h
-        max = _+1
-print(max, max_h)
+        max_index = i + 1
+print(max_index, max_h)
