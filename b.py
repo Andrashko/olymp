@@ -1,3 +1,5 @@
+# прямо в лоб рухаємо черепаху по матриці
+
 n, m = list(map(int, input().split()))
 x,y = list(map(int, input().split()))
 k = int(input())

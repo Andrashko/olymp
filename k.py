@@ -1,3 +1,4 @@
+# пряма реалізація бінарного дерева
 class bin_tree_node:
     def __init__(self, val):
         self.value = val

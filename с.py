@@ -1,3 +1,4 @@
+# обхід графа в глибину, поинаємо із вершин де нема вихідних дуг
 n, m = list(map(int, input().split()))
 class Node:
     def __init__(self, val):
