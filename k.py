@@ -32,7 +32,7 @@ class Bin_tree_node:
 n = int(input())
 max_h = 0
 max_index = -1
-for i in range(n):
+for index in range(n):
     tree = list(map(int, input().split()))
     root= Bin_tree_node(tree[1])
     for i in range(2, tree[0]+1):
@@ -40,5 +40,5 @@ for i in range(n):
     h=root.height()
     if h>max_h:
         max_h = h
-        max_index = i + 1
+        max_index = index + 1
 print(max_index, max_h)
