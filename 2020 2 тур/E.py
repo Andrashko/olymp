@@ -52,15 +52,17 @@ def isPrime(n, k=13):
                  
     return True
 
+ #================================================================================   
+
 a, b = list(map(int, input().split()))
 
 k = 0
-for number in range(a, b+1):
-    if number<4:
-        continue
-    if number%2 == 0 or isPrime(number-2):
+for number in range(max(a, 4), b+1): #фікс бага для тесту коли a == 2, тому що 2 і 3 не можуть бути представлені сумою простих 
+    if number % 2 == 0 or isPrime(number-2):
         k += 1
 print(k)
+
+
 
 # count = 1000000
 # is_prime = [True]*count
