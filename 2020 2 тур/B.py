@@ -14,7 +14,8 @@
 # broken_tests = []
 # interval = 0
 # for number in range (lucky_numbers[0], lucky_numbers[-1]):
-#     if (number - lucky_numbers[interval]) == (lucky_numbers[interval+1] - number):
+#     if (number - lucky_numbers[interval]) == (lucky
+# _numbers[interval+1] - number):
 #         broken_tests.append(number)
 #     if number == lucky_numbers[interval+1]:
 #         interval += 1
