@@ -1,90 +1,58 @@
-# Iterative Function to calculate 
-# (a^n)%p in O(logy) 
-def power(a, n, p):
-     
-    # Initialize result 
+# Функця для знаходження (a**n)%p за O(log)
+def power_mod(a, n, p):
+
     res = 1
-     
-    # Update 'a' if 'a' >= p 
-    a = a % p  
-     
+
+    # a повинно бути менше за p
+    a = a % p
+
     while n > 0:
-         
-        # If n is odd, multiply 
-        # 'a' with result 
+
+        # якщо n непарне то, множимо a на результат
         if n % 2:
             res = (res * a) % p
             n = n - 1
         else:
+            # якщо n парне то ділимо на 2
             a = (a ** 2) % p
-             
-            # n must be even now 
             n = n // 2
-             
+
     return res % p
-     
-# If n is prime, then always returns true,
-# If n is composite than returns false with
-# high probability Higher value of k increases
-# probability of correct result
-import random
+
+# Швидкий ймовірнісний тест числа на простоту. При декількох ітераціях (13) ймовірність правильності теста 99.999999%
+
+
 def isPrime(n, k=13):
-     
-    # Corner cases
+
+    # Винятки для 1,2,3,4
     if n == 1 or n == 4:
         return False
     elif n == 2 or n == 3:
         return True
-     
-    # Try k times 
+
     else:
         for i in range(k):
-             
-            # Pick a random number 
-            # in [2..n-2]      
-            # Above corner cases make 
-            # sure that n > 4 
+
+            # Вибираємо випадкове число з проміжку [2..n-2]
             a = random.randint(2, n - 2)
-             
-            # Fermat's little theorem 
-            if power(a, n - 1, n) != 1:
+
+            # Застосовуємо малу теорему Ферма
+            # https://uk.wikipedia.org/wiki/%D0%9C%D0%B0%D0%BB%D0%B0_%D1%82%D0%B5%D0%BE%D1%80%D0%B5%D0%BC%D0%B0_%D0%A4%D0%B5%D1%80%D0%BC%D0%B0
+            if power_mod(a, n - 1, n) != 1:
                 return False
-                 
+
     return True
 
- #================================================================================   
+ # ================================================================================
+# всі прості числа крім 2 непарні, тому як суму двох простих чисел можна Х подати число тільки
+# якщо Х - парне, або якщо один доданок 2, а інший (Х-2) - теж просте число
+
 
 a, b = list(map(int, input().split()))
 
 k = 0
-for number in range(max(a, 4), b+1): #фікс бага для тесту коли a == 2, тому що 2 і 3 не можуть бути представлені сумою простих 
+# фікс бага для тесту коли a == 2, тому що 2 і 3 не можуть бути представлені сумою простих
+for number in range(max(a, 4), b+1):
     if number % 2 == 0 or isPrime(number-2):
         k += 1
 print(k)
-
-
-
-# count = 1000000
-# is_prime = [True]*count
-# is_prime [0] , is_prime[1] = False, False
-# primes = []
-
-# number = 2
-# while number < count:
-#     if is_prime[number]:
-#         primes.append(number)
-#         for np in range (2*number, count, number):
-#             is_prime[np] = False
-#     number +=1 
-
-
-# def isPrime (number):
-#     if number < 2:
-#         return False
-#     sqrt_number = number**0.5
-#     for p in primes:
-#         if p > sqrt_number:
-#             break
-#         if number % p == 0:
-#             return False
-#     return True
