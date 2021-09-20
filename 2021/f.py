@@ -38,3 +38,12 @@ for end in range(n):
     matrix.append(row)
 
 print(sum(map(lambda f: f.count, matrix[n-1])))
+
+# def inv_count(p):
+#     res = 0
+#     for i in range(len(p)):
+#         for j in range (i+1, len(p)):
+#             if p[i]>p[j]:
+#                 res += 1
+#     return res
+# print (inv_count(p))
