@@ -1,13 +1,56 @@
-from copy import copy
+from math import inf
 
-class DataStructure:
-    def __init__(self, min, max, count=1):
-        self.min = min
-        self.max = max
-        self.count = count
+
+class Node:
+    def __init__(self, value, order):
+        self.value = value
+        self.order = order
+        self.left = None
+        self.right = None
+
+    def insert(self, node):
+        if node.value < self.value:
+            if self.left:
+                self.left.insert(node)
+            else:
+                self.left = node
+        else:
+            if self.right:
+                self.right.insert(node)
+            else:
+                self.right = node
+
+    def count(self):
+        res = 1
+        order = inf
+        if self.left:
+            if self.right:
+                order = self.right.order
+            res += self.left.count_left(order)
+        if self.right:
+            if self.left:
+                order = self.left.order
+            res += self.right.count_right(order)
+        return res
+
+    def count_left(self, order):
+        if self.order>order:
+            return 0
+        res = 1
+        if self.left:
+            res += self.left.count_left(order)
+        return res
+
+    def count_right(self, order):
+        if self.order>order:
+            return 0
+        res = 1
+        if self.right:
+            res += self.right.count_right(order)
+        return res
 
     def __str__(self) -> str:
-        return f"({self.min}, {self.max}) -> {self.count}"
+        return f"{self.value} [{self.order}]"
 
     def __repr__(self) -> str:
         return str(self)
@@ -16,34 +59,11 @@ class DataStructure:
 n = int(input())
 p = list(map(int, input().split()))
 
-matrix = []
+count = 0
+for start in range(n):
+    tree = Node(p[start], start)
+    for i in range(start+1, n):
+        tree.insert(Node(p[i], i))
+    count += tree.count()
 
-for end in range(n):
-    row = []
-    
-    for start in range(end):
-        f_start_end = copy(matrix[end-1][start])
-
-        if f_start_end.min > p[end]:
-            f_start_end.min = p[end]
-            f_start_end.count += 1
-        if f_start_end.max < p[end]:
-            f_start_end.max = p[end]
-            f_start_end.count += 1
-
-        row.append(f_start_end)
-
-    row.append(DataStructure(p[end], p[end]))
-
-    matrix.append(row)
-
-print(sum(map(lambda f: f.count, matrix[n-1])))
-
-# def inv_count(p):
-#     res = 0
-#     for i in range(len(p)):
-#         for j in range (i+1, len(p)):
-#             if p[i]>p[j]:
-#                 res += 1
-#     return res
-# print (inv_count(p))
+print(count)
