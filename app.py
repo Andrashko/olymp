@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from model import todo_list, id, add_new_todo, count_completed, find_todo, delete_todo
+from model import commit, get_todo_list, add_new_todo, count_completed, find_todo, delete_todo
 
 
 app = Flask(__name__)
@@ -7,10 +7,17 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
+    todo_list = get_todo_list()
+
+    completed = 0
+    for todo in todo_list:
+        if todo["complete"]:
+            completed = completed + 1
+
     return render_template(
         "base.html",
         todo_list=todo_list,
-        completed_count=count_completed()
+        completed=completed
     )
 
 
@@ -18,6 +25,7 @@ def home():
 def add():
     title = request.form.get("title")
     add_new_todo(title)
+    commit()
     return redirect(url_for("home"))
 
 
@@ -31,6 +39,7 @@ def update(todo_id):
 @app.route("/delete/<int:todo_id>")
 def delete(todo_id):
     delete_todo(todo_id)
+    commit()
     return redirect(url_for("home"))
 
 
