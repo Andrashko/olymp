@@ -8,16 +8,9 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     todo_list = get_todo_list()
-
-    completed = 0
-    for todo in todo_list:
-        if todo["complete"]:
-            completed = completed + 1
-
     return render_template(
-        "base.html",
-        todo_list=todo_list,
-        completed=completed
+        "todo.html",
+        todo_list=todo_list
     )
 
 
@@ -45,7 +38,16 @@ def delete(todo_id):
 
 @app.route("/author")
 def author():
-    return render_template("author.html")
+    return "Add author page here"
+
+
+@app.route("/mark_all_done")
+def mark_all_done():
+    todo_list = get_todo_list()
+    for item in todo_list:
+        item["complete"] = True
+    commit()
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":

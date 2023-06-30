@@ -2,11 +2,16 @@
     {
         "id": 1,
         "title": "Relax",
-        "complete": false
+        "complete": true
+    },
+    {
+        "id": 2,
+        "title": "Learn pyhton",
+        "complete": true
     },
     {
         "id": 3,
-        "title": "Fix bug",
-        "complete": false
+        "title": "Fix bugs",
+        "complete": true
     }
 ]
