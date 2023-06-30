@@ -43,11 +43,7 @@ def author():
 
 @app.route("/mark_all_done")
 def mark_all_done():
-    todo_list = get_todo_list()
-    for item in todo_list:
-        item["complete"] = True
-    commit()
-    return redirect(url_for("home"))
+    pass
 
 
 if __name__ == "__main__":
